@@ -34,11 +34,11 @@ public abstract class InGameHudMixin {
     }
   }
 
-  @Redirect(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/font/TextRenderer;draw(Lnet/minecraft/client/util/math/MatrixStack;Lnet/minecraft/text/Text;FFI)I"))
+  @Redirect(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/font/TextRenderer;drawWithShadow(Lnet/minecraft/client/util/math/MatrixStack;Lnet/minecraft/text/Text;FFI)I"))
   public int recolor(TextRenderer instance, MatrixStack matrices, Text text, float x, float y, int color){
     if(this.client.player instanceof ISpamClick isc){
-      return instance.draw(matrices, text, x,y, isc.getClicker().getColor());
+      return instance.drawWithShadow(matrices, text, x,y, isc.getClicker().getColor());
     }
-    return instance.draw(matrices, text, x, y, color);
+    return instance.drawWithShadow(matrices, text, x, y, color);
   }
 }
